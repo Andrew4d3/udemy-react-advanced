@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+// import logo from './logo.svg';
+import "./App.css";
+
+/*
+  App Overview described here: https://github.com/Andrew4d3/udemy-react-advanced/issues/1
+*/
+
 
 function App() {
+  const logo =
+    "https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png";
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    {/* We are removing all the content that was here and replacing it with this simple text */}
+      Hi there!
     </div>
   );
 }
