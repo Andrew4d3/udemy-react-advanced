@@ -4,10 +4,10 @@ import "./App.css";
 
 /*
   App Overview described here: https://github.com/Andrew4d3/udemy-react-advanced/issues/1
-*/
 
-/*
   React and Redux Design described here: https://github.com/Andrew4d3/udemy-react-advanced/issues/2
+
+  What do we test?: https://github.com/Andrew4d3/udemy-react-advanced/issues/3
 */
 
 
