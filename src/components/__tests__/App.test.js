@@ -13,7 +13,7 @@ it("shows a comment box", () => {
   // Looks inside the div
   // and checks to see if the CommentBox is in there
   expect(div.innerHTML).toContain("Comment Box");
-  // How expectations work: https://github.com/Andrew4d3/udemy-react-advanced/issues/4
+  // Why is this expect statement wrong?: https://github.com/Andrew4d3/udemy-react-advanced/issues/5
 
   // Unmounting the App component we just mounted, (doing a "clean-up")
   ReactDOM.unmountComponentAtNode(div);
