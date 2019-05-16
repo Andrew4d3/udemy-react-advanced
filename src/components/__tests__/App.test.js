@@ -2,6 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import App from "../App";
 import CommentBox from "../CommentBox";
+import CommentList from "../CommentList";
 
 it("shows a comment box", () => {
   // With shallow we are rendering only the single component, not including its children.
@@ -9,4 +10,10 @@ it("shows a comment box", () => {
 
   // Now we check if the wrapped component has an instance of CommentBox (we don't care the CommentBox content)
   expect(wrapped.find(CommentBox).length).toEqual(1);
+});
+
+it("shows a comment list", () => {
+  // We are doing the same with the CommentList component
+  const wrapped = shallow(<App />);
+  expect(wrapped.find(CommentList).length).toEqual(1);
 });
