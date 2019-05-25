@@ -1,8 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
 import App from "../App";
-import CommentBox from "../CommentBox";
-import CommentList from "../CommentList";
+import CommentBox from "components/CommentBox"; // Now we can use absilute paths because we define a .env file that changes the default NODE_PATH
+import CommentList from "components/CommentList";
 
 it("shows a comment box", () => {
   // With shallow we are rendering only the single component, not including its children.
