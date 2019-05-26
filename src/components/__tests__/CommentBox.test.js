@@ -33,4 +33,10 @@ it("has a text area that users can type in", () => {
   // For that, we use the "update" enzyme method
 
   wrapped.update();
+
+  // Now that our component is updated, we need to verify that the textarea's value actually changed...
+  // For that, we use the "prop" enzyme method, where we can verify the value of any component property
+  // In our case, the prop's name is "value"
+
+  expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
 });
