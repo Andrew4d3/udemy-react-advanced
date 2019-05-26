@@ -8,7 +8,7 @@ beforeEach(() => {
   wrapped = mount(<CommentBox />);
 });
 
-// Since we're using a full DOM testim, it's neccessary to do a "clean-up" after each test runs
+// Since we're using a full DOM testing, it's neccessary to do a "clean-up" after each test runs
 // We only have to use the "unmount" method
 afterEach(() => {
   wrapped.unmount();
@@ -21,4 +21,10 @@ it("shows a comment box", () => {
   expect(wrapped.find("button").length).toEqual(1);
 });
 
-// Read commit comment...
+it("has a text area that users can type in", () => {
+  // For this text, we need to simulate a "change" event.
+  // So we use the "simulate" enzyme method, where we can pass a mocked event object as parameter
+  wrapped.find("textarea").simulate("change", {
+    target: { value: "new comment" }
+  });
+});
