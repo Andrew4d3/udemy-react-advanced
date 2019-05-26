@@ -20,3 +20,5 @@ it("shows a comment box", () => {
   expect(wrapped.find("textarea").length).toEqual(1);
   expect(wrapped.find("button").length).toEqual(1);
 });
+
+// Read commit comment...
