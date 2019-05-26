@@ -41,8 +41,14 @@ it("has a text area that users can type in", () => {
   expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
 });
 
-// Exercise code
-it("submits the comment and empties the textarea afterwards", () => {
+// Exercise code with fixes
+it("clears the textarea after the comment gets submmited", () => {
+  wrapped.find("textarea").simulate("change", {
+    target: { value: "new comment" }
+  });
+
+  wrapped.update();
+
   wrapped.find("textarea").simulate("submit", {
     preventDefault: () => {}
   });
