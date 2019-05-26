@@ -40,3 +40,14 @@ it("has a text area that users can type in", () => {
 
   expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
 });
+
+// Exercise code
+it("submits the comment and empties the textarea afterwards", () => {
+  wrapped.find("textarea").simulate("submit", {
+    preventDefault: () => {}
+  });
+
+  wrapped.update();
+
+  expect(wrapped.find("textarea").prop("value")).toEqual("");
+});
