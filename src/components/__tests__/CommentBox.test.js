@@ -27,4 +27,10 @@ it("has a text area that users can type in", () => {
   wrapped.find("textarea").simulate("change", {
     target: { value: "new comment" }
   });
+
+  // As you may know, A component's update in react happens asynchronously.
+  // That's why we need to "force" an update to take place in order to make our assertions
+  // For that, we use the "update" enzyme method
+
+  wrapped.update();
 });
