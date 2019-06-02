@@ -21,39 +21,33 @@ it("shows a comment box", () => {
   expect(wrapped.find("button").length).toEqual(1);
 });
 
-it("has a text area that users can type in", () => {
-  // For this text, we need to simulate a "change" event.
-  // So we use the "simulate" enzyme method, where we can pass a mocked event object as parameter
-  wrapped.find("textarea").simulate("change", {
-    target: { value: "new comment" }
+// Use describe statements to group tests together
+describe("The text area", () => {
+  beforeEach(() => {
+    // This beforeEach will only execute inside this "describe" statement
+    wrapped.find("textarea").simulate("change", {
+      target: { value: "new comment" }
+    });
+
+    wrapped.update();
   });
 
-  // As you may know, A component's update in react happens asynchronously.
-  // That's why we need to "force" an update to take place in order to make our assertions
-  // For that, we use the "update" enzyme method
+  it("has a text area that users can type in", () => {
+    // Now that our component is updated, we need to verify that the textarea's value actually changed...
+    // For that, we use the "prop" enzyme method, where we can verify the value of any component property
+    // In our case, the prop's name is "value"
 
-  wrapped.update();
-
-  // Now that our component is updated, we need to verify that the textarea's value actually changed...
-  // For that, we use the "prop" enzyme method, where we can verify the value of any component property
-  // In our case, the prop's name is "value"
-
-  expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
-});
-
-// Exercise code with fixes
-it("clears the textarea after the comment gets submmited", () => {
-  wrapped.find("textarea").simulate("change", {
-    target: { value: "new comment" }
+    expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
   });
 
-  wrapped.update();
+  // Exercise code with fixes
+  it("clears the textarea after the comment gets submmited", () => {
+    wrapped.find("textarea").simulate("submit", {
+      preventDefault: () => {}
+    });
 
-  wrapped.find("textarea").simulate("submit", {
-    preventDefault: () => {}
+    wrapped.update();
+
+    expect(wrapped.find("textarea").prop("value")).toEqual("");
   });
-
-  wrapped.update();
-
-  expect(wrapped.find("textarea").prop("value")).toEqual("");
 });
