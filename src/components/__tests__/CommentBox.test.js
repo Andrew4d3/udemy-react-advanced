@@ -3,6 +3,18 @@ import { mount } from "enzyme";
 import CommentBox from "components/CommentBox";
 let wrapped;
 
+/*
+  Why our tests are failing now?
+
+  The CommentBox component is expecting to have a Provider as parent component.
+  That's happening in our real environment but it's not happening in our test environment
+  That's why we need to somehow wrapp the CommentBox component around the Provider. So that our tests can work
+  We might just replicate the code, but that would be a bad practice
+
+  So let's find a better way to do it!
+
+*/
+
 beforeEach(() => {
   // As I mentioned, we are testing the full DOM, we need to use "mount" for that
   wrapped = mount(<CommentBox />);
