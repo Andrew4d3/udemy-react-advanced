@@ -1,23 +1,18 @@
 import React from "react";
 import { mount } from "enzyme";
 import CommentBox from "components/CommentBox";
+// (6) We can import the same Root component in any of our tests
+import Root from "Root";
+
 let wrapped;
 
-/*
-  Why our tests are failing now?
-
-  The CommentBox component is expecting to have a Provider as parent component.
-  That's happening in our real environment but it's not happening in our test environment
-  That's why we need to somehow wrapp the CommentBox component around the Provider. So that our tests can work
-  We might just replicate the code, but that would be a bad practice
-
-  So let's find a better way to do it!
-
-*/
-
 beforeEach(() => {
-  // As I mentioned, we are testing the full DOM, we need to use "mount" for that
-  wrapped = mount(<CommentBox />);
+  // (7) And use it like this...
+  wrapped = mount(
+    <Root>
+      <CommentBox />
+    </Root>
+  );
 });
 
 // Since we're using a full DOM testing, it's neccessary to do a "clean-up" after each test runs
