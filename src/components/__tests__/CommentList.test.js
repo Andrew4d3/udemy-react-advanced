@@ -6,14 +6,20 @@ import Root from "Root"; // Our component uses Redux, so we need to import the R
 
 let wrapped;
 
-// (1) We need to mount the CommentList component before each of the tests and wrapp it around the Root component
 beforeEach(() => {
+  // (1) Let's define some mock comments here:
+  const initialState = {
+    comments: ["Comment 1", "Comment 2"]
+  };
+  // (2) And pass them out as the Root props
   wrapped = mount(
-    <Root>
+    <Root initialState={initialState}>
       <CommentList />
     </Root>
   );
 });
 
-// (2) However, we have a problem here. Our initial state doesn't have any comments so we need to find way as to have comments inside there.
-it("creates one LI per comment", () => {});
+it("creates one LI per comment", () => {
+  // (5) For now, we're just going to log the length of the li elements. We should get a 2 as length
+  console.log(wrapped.find("li").length);
+});
