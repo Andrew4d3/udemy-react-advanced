@@ -10,11 +10,11 @@ it("handles action of type SAVE_COMMENT", () => {
 
   const newState = commentsReducer([], action); // Passing our fake action and a fake initial step
 
-  expect(newState).toEqual(["New Comment"]); // And here we verify if the new state contains the comment we included in our fake action payload00
+  expect(newState).toEqual(["New Comment"]); // And here we verify if the new state contains the comment we included in our fake action payload
 });
 
 // Now let's test if our reducer handles Unknown type actions correctly
 it("handles action with unknown type", () => {
-  const newState = commentsReducer([], { type: "THIS_DOES_NOT_EXIST" }); // The type could be anythins, as long it doesn't exist
+  const newState = commentsReducer([], { type: "THIS_DOES_NOT_EXIST" }); // The type could be anything, as long it doesn't exist
   expect(newState).toEqual([]); // We should get the same initial state, that's how the reducer works
 });
