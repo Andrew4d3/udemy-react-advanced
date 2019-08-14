@@ -1,11 +1,23 @@
-// Let's first import the action name we're going to use for our action dispatcher
-import { SAVE_COMMENT } from "actions/types";
+import axios from "axios";
+import { SAVE_COMMENT, FETCH_COMMENTS } from "actions/types";
 
-// The action dispatcher will receive, as parameter, the comment we want to add to the comment list
 export function saveComment(comment) {
-  // It will dispatch an action with the type we already imported and the comment received as the payload
   return {
     type: SAVE_COMMENT,
     payload: comment
+  };
+}
+
+// (5) Let's define the action creator which will make the API call
+export function fetchComments() {
+  // (6) Here we send the axios request to the mock server in order to retrieve the comments
+  const response = axios.get(
+    "https://jsonplaceholder.typicode.com/posts/1/comments"
+  );
+
+  // (7) And we return the action object, as payload we send the promise from the axios request
+  return {
+    type: FETCH_COMMENTS,
+    payload: response
   };
 }

@@ -1,12 +1,16 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux"; // (1) Let's import applyMiddleware so that we can integrate the redux-promise middleware
+import reduxPromise from "redux-promise";
 import reducers from "reducers";
 
-// (3) Let's do some destructuring so that we can define an empy object as default initial state
 export default ({ children, initialState = {} }) => {
-  // (4) Now, instead of passing an empty object as initial state, we passed the one from the props
-  return (
-    <Provider store={createStore(reducers, initialState)}>{children}</Provider>
+  // (2) Let's define the store as a constant
+  const store = createStore(
+    reducers,
+    initialState,
+    applyMiddleware(reduxPromise) // (3) As third parameter, we pass the reduxPromise middleware, we apply it using the helper function we importerd before
   );
+
+  return <Provider store={store}>{children}</Provider>;
 };
