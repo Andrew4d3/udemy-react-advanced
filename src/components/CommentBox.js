@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-// (1) We need to connect this component to redux, so let's import the required dependencies
 import { connect } from "react-redux";
 import * as actions from "actions";
 
-// Now it's time to set the event handlers
 class CommentBox extends Component {
   state = { comment: "" };
 
@@ -18,7 +16,7 @@ class CommentBox extends Component {
   };
 
   render() {
-    // (1) Let's include the button to fetch the comments from the server
+    // (1) Let's include a class name to mark the Fetch comments button
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -28,7 +26,9 @@ class CommentBox extends Component {
             <button>Submit Comment</button>
           </div>
         </form>
-        <button onClick={this.props.fetchComments}>Fetch Comments</button>
+        <button className="fetch-comments" onClick={this.props.fetchComments}>
+          Fetch Comments
+        </button>
       </div>
     );
   }
