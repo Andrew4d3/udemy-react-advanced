@@ -1,13 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
 import CommentBox from "components/CommentBox";
-// (6) We can import the same Root component in any of our tests
 import Root from "Root";
 
 let wrapped;
 
 beforeEach(() => {
-  // (7) And use it like this...
   wrapped = mount(
     <Root>
       <CommentBox />
@@ -15,23 +13,18 @@ beforeEach(() => {
   );
 });
 
-// Since we're using a full DOM testing, it's neccessary to do a "clean-up" after each test runs
-// We only have to use the "unmount" method
 afterEach(() => {
   wrapped.unmount();
 });
 
+// (1) We have this test case failing, it's expecting to have one button but we added a second one few moments ago
 it("shows a comment box", () => {
-  // With "find", we cannot only find component instances but HTML components as well.
-  // So we can verify the existence of the following HTML components: (textarea, button)
   expect(wrapped.find("textarea").length).toEqual(1);
-  expect(wrapped.find("button").length).toEqual(1);
+  expect(wrapped.find("button").length).toEqual(2); // Now it expects 2!
 });
 
-// Use describe statements to group tests together
 describe("The text area", () => {
   beforeEach(() => {
-    // This beforeEach will only execute inside this "describe" statement
     wrapped.find("textarea").simulate("change", {
       target: { value: "new comment" }
     });
@@ -40,14 +33,9 @@ describe("The text area", () => {
   });
 
   it("has a text area that users can type in", () => {
-    // Now that our component is updated, we need to verify that the textarea's value actually changed...
-    // For that, we use the "prop" enzyme method, where we can verify the value of any component property
-    // In our case, the prop's name is "value"
-
     expect(wrapped.find("textarea").prop("value")).toEqual("new comment");
   });
 
-  // Exercise code with fixes
   it("clears the textarea after the comment gets submmited", () => {
     wrapped.find("textarea").simulate("submit", {
       preventDefault: () => {}
