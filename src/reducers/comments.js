@@ -1,13 +1,15 @@
-// Importing the action type names from the corresponding file
-import { SAVE_COMMENT } from "actions/types";
+// (2) Including the FETCH_COMMENTS type
+import { SAVE_COMMENT, FETCH_COMMENTS } from "actions/types";
 
-// Here we're defining the comments reducers
 export default function(state = [], action) {
   switch (action.type) {
-    // Now if we get a "SAVE_COMMENT" action we're going to generate a new state
-    // This new state will be our current comment's array + the new comment
     case SAVE_COMMENT:
       return [...state, action.payload];
+    case FETCH_COMMENTS:
+      // (3) Mapping through the response to get only the comment strings
+      const comments = action.payload.data.map(comment => comment.name);
+      // (4) Building the new state.
+      return [...state, ...comments];
     default:
       return state;
   }
