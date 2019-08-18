@@ -17,7 +17,7 @@ afterEach(() => {
   moxios.uninstall();
 });
 
-// (1) The reason this test is still failing is because jest works in a synchronous way, and the moxios/axios call works asynchronously.
+// (1) Using setTimeout works OK to simulate async calls, but this solution isn't very adequate
 it("can fetch a list of comments and display them", done => {
   const wrapped = mount(
     <Root>
@@ -26,13 +26,12 @@ it("can fetch a list of comments and display them", done => {
   );
 
   wrapped.find(".fetch-comments").simulate("click");
-  // (2) That's why we need to refactor the following instruction to make it work in a asynchronous fashion
-  setTimeout(() => {
-    // (3) Remember to update the component first!
+
+  // (2) The moxios API counts with a "wait" method, which we can use to wait for any async call we require to wait
+  moxios.wait(() => {
     wrapped.update();
     expect(wrapped.find("li").length).toEqual(2);
     done();
-    // (4) And don't forget to unmount the wrapped component too
     wrapped.unmount();
-  }, 100);
+  });
 });
