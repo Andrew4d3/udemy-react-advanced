@@ -3,30 +3,36 @@ import { mount } from "enzyme";
 import moxios from "moxios";
 import Root from "Root";
 import App from "components/App";
+import { wrap } from "module";
 
-// (1) Here, we're going to integrate moxios in order to mock our HTTP requests handled by axios
 beforeEach(() => {
   moxios.install();
   moxios.stubRequest("https://jsonplaceholder.typicode.com/posts/1/comments", {
-    // (2) Here we're defining the mocked response
     status: 200,
-    response: [{ name: "Fetched #1" }, { name: "Fetched #1" }]
+    response: [{ name: "Fetched #1" }, { name: "Fetched #2" }]
   });
 });
 
 afterEach(() => {
-  moxios.uninstall(); // (3) And here we're disabling the moxios stub so that we avoid accidentally calling moxios for other unintended tests
+  moxios.uninstall();
 });
 
-it("can fetch a list of comments and display them", () => {
-  // Attenpt to render the entire app
+// (1) The reason this test is still failing is because jest works in a synchronous way, and the moxios/axios call works asynchronously.
+it("can fetch a list of comments and display them", done => {
   const wrapped = mount(
     <Root>
       <App />
     </Root>
   );
-  // find the 'fetchComments' button and click it
+
   wrapped.find(".fetch-comments").simulate("click");
-  // Expect to find a list of commments
-  expect(wrapped.find("li").length).toEqual(500);
+  // (2) That's why we need to refactor the following instruction to make it work in a asynchronous fashion
+  setTimeout(() => {
+    // (3) Remember to update the component first!
+    wrapped.update();
+    expect(wrapped.find("li").length).toEqual(2);
+    done();
+    // (4) And don't forget to unmount the wrapped component too
+    wrapped.unmount();
+  }, 100);
 });
