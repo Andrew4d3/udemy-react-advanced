@@ -3,7 +3,6 @@ import { mount } from "enzyme";
 import moxios from "moxios";
 import Root from "Root";
 import App from "components/App";
-import { wrap } from "module";
 
 beforeEach(() => {
   moxios.install();
