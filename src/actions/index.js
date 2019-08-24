@@ -1,5 +1,6 @@
 import axios from "axios";
-import { SAVE_COMMENT, FETCH_COMMENTS } from "actions/types";
+// (3) Let's import the new action type so that we can use it in our new action creator
+import { SAVE_COMMENT, FETCH_COMMENTS, CHANGE_AUTH } from "actions/types";
 
 export function saveComment(comment) {
   return {
@@ -8,16 +9,21 @@ export function saveComment(comment) {
   };
 }
 
-// (5) Let's define the action creator which will make the API call
 export function fetchComments() {
-  // (6) Here we send the axios request to the mock server in order to retrieve the comments
   const response = axios.get(
     "https://jsonplaceholder.typicode.com/posts/1/comments"
   );
 
-  // (7) And we return the action object, as payload we send the promise from the axios request
   return {
     type: FETCH_COMMENTS,
     payload: response
+  };
+}
+
+// (4) Let's define our new action creator which receives a boolean that indicates whether the user is logged in or not
+export function changeAuth(isLoggedIn) {
+  return {
+    type: CHANGE_AUTH,
+    payload: isLoggedIn
   };
 }
