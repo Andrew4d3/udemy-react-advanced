@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import commentsReducer from "reducers/comments";
+import authReducer from "reducers/auth";
 
-// Here we're combining all the current reducers (it's only one, but we might have more)
-// into one single global reducer
-
+// (1) Let's include the new reducer into our global reducer state
 export default combineReducers({
-  comments: commentsReducer
+  comments: commentsReducer,
+  auth: authReducer
 });
