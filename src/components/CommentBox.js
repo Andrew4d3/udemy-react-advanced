@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "actions";
 
-// (1) Let's define some life-cycle react methods to indicate when the App should navigate away
 class CommentBox extends Component {
   state = { comment: "" };
 
@@ -18,7 +17,8 @@ class CommentBox extends Component {
 
   shouldNavigateAway() {
     if (!this.props.auth) {
-      console.log("I need to leave");
+      // (1) When we use react-router we gain acces to its "history" method when we can programmatically change routes by pusing them in
+      this.props.history.push("/");
     }
   }
 
@@ -50,7 +50,6 @@ class CommentBox extends Component {
   }
 }
 
-// (2) We will be using the redux state here so let's map it into our props as well.
 function mapStateToProps(state) {
   return { auth: state.auth };
 }
