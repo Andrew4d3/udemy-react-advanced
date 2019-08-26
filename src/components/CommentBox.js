@@ -2,8 +2,25 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "actions";
 
+// (1) Let's define some life-cycle react methods to indicate when the App should navigate away
 class CommentBox extends Component {
   state = { comment: "" };
+
+  // Our component just got rendered
+  componentDidMount() {
+    this.shouldNavigateAway();
+  }
+
+  // Our component just got updated
+  componentDidUpdate() {
+    this.shouldNavigateAway();
+  }
+
+  shouldNavigateAway() {
+    if (!this.props.auth) {
+      console.log("I need to leave");
+    }
+  }
 
   handleChange = event => {
     this.setState({ comment: event.target.value });
@@ -16,7 +33,6 @@ class CommentBox extends Component {
   };
 
   render() {
-    // (1) Let's include a class name to mark the Fetch comments button
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -34,7 +50,12 @@ class CommentBox extends Component {
   }
 }
 
+// (2) We will be using the redux state here so let's map it into our props as well.
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   actions
 )(CommentBox);
