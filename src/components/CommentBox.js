@@ -5,23 +5,7 @@ import * as actions from "actions";
 class CommentBox extends Component {
   state = { comment: "" };
 
-  // Our component just got rendered
-  componentDidMount() {
-    this.shouldNavigateAway();
-  }
-
-  // Our component just got updated
-  componentDidUpdate() {
-    this.shouldNavigateAway();
-  }
-
-  shouldNavigateAway() {
-    if (!this.props.auth) {
-      // (1) When we use react-router we gain acces to its "history" method when we can programmatically change routes by pusing them in
-      this.props.history.push("/");
-    }
-  }
-
+  // (1) We need to move this life cycle methods from here...
   handleChange = event => {
     this.setState({ comment: event.target.value });
   };
@@ -50,11 +34,8 @@ class CommentBox extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { auth: state.auth };
-}
-
+// (3) We also need to move out the mapStateToProps function
 export default connect(
-  mapStateToProps,
+  null,
   actions
 )(CommentBox);
