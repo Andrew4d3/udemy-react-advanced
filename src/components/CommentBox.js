@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "actions";
+import requireAuth from 'components/requireAuth';
 
 class CommentBox extends Component {
   state = { comment: "" };
 
-  // (1) We need to move this life cycle methods from here...
   handleChange = event => {
     this.setState({ comment: event.target.value });
   };
@@ -34,8 +34,7 @@ class CommentBox extends Component {
   }
 }
 
-// (3) We also need to move out the mapStateToProps function
 export default connect(
   null,
   actions
-)(CommentBox);
+)(requireAuth(CommentBox)); // (2) Now we can use our recently created HOC
