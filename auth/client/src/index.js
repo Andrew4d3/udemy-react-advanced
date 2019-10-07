@@ -1,19 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 import App from "./components/App";
 import Welcome from "./components/Welcome";
-// (3) Let's import our new Sign Up component into the main router
 import Signup from './components/auth/Signup';
+import reducers from './reducers';
 
+// (5) Finally, we wire up our reducers using the Provider tag and the createStore method
 ReactDOM.render(
-  <BrowserRouter>
-    <App>
-      <Route path="/" exact component={Welcome} />
-      {/* (4) Remember we need to set a new rout for the new component */}
-      <Route path="/signup" component={Signup} />
-    </App>
-  </BrowserRouter>,
+  <Provider store={createStore(reducers, {})}>
+    <BrowserRouter>
+      <App>
+        <Route path="/" exact component={Welcome} />
+        <Route path="/signup" component={Signup} />
+      </App>
+    </BrowserRouter>
+  </Provider>,
   document.querySelector("#root")
 );
