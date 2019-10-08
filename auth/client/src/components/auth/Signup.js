@@ -1,16 +1,20 @@
 import React, { Component } from "react";
-// (3) Now we have to import these two methods inside the component we want to use redux-form
 import { reduxForm, Field } from "redux-form";
 
 class Signup extends Component {
-
+  // (3) This is our onSubmit method, for now we're just logging the props we took from the redux-form (email and password)
+  onSubmit = formProps => {
+    console.log(formProps);
+  };
 
   render() {
+    // (1) We need to use this redux-form function which was injected through the component props
+    const { handleSubmit } = this.props;
     return (
-      <form>
+      // (2) handleSubmit is a High-order function which will take our component onSubmit method and inject them the props we defined inside the Field components (email and password)
+      <form onSubmit={handleSubmit(this.onSubmit)}>
         <fieldset>
           <label>Email</label>
-          {/* (5) Now we can start using the Field component from redux-form on this way. */}
           <Field
             name="email"
             type="text"
@@ -23,15 +27,15 @@ class Signup extends Component {
           <Field
             name="password"
             type="password"
-            // (6) Notice how we indicate which component we want to render. In this case, a regular HTML input
             component="input"
             autoComplete="none"
           />
         </fieldset>
+        {/* (4) Don't forget to include the signup button */}
+        <button>Sing Up!</button>
       </form>
     );
   }
 }
 
-// (4) The reduxForm property is a High Order component which will conect our component with our redux-form reducer
 export default reduxForm({ form: "signup" })(Signup);
