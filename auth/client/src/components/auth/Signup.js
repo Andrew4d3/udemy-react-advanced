@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
+import { connect } from 'react-redux';
+// (3) Now let's import all the redux actions
+import * as actions from '../../actions';
 
-class Signup extends Component {
-  // (3) This is our onSubmit method, for now we're just logging the props we took from the redux-form (email and password)
+class Signup extends Component { 
   onSubmit = formProps => {
     console.log(formProps);
   };
 
   render() {
-    // (1) We need to use this redux-form function which was injected through the component props
     const { handleSubmit } = this.props;
-    return (
-      // (2) handleSubmit is a High-order function which will take our component onSubmit method and inject them the props we defined inside the Field components (email and password)
+    return (    
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <fieldset>
           <label>Email</label>
@@ -31,11 +31,12 @@ class Signup extends Component {
             autoComplete="none"
           />
         </fieldset>
-        {/* (4) Don't forget to include the signup button */}
         <button>Sing Up!</button>
       </form>
     );
   }
 }
 
+// (4) Here we need to connect our Component to redux using the connect method. But we're already using a High order component (reduxForm).
+// So we need to find a better way to do this, without cluttering more code into one line
 export default reduxForm({ form: "signup" })(Signup);
