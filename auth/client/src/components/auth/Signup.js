@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
-import { connect } from 'react-redux';
-// (3) Now let's import all the redux actions
-import * as actions from '../../actions';
+// (1) In order to combine multiple HOC into one, we can use this utility function called "compose"
+import { compose } from "redux";
+import { connect } from "react-redux";
+import * as actions from "../../actions";
 
-class Signup extends Component { 
+class Signup extends Component {
   onSubmit = formProps => {
-    console.log(formProps);
+    // (3) Now we have access to the redux actions. So let's call the signup action with the form props from this component
+    this.props.signup(formProps);
   };
 
   render() {
     const { handleSubmit } = this.props;
-    return (    
+    return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <fieldset>
           <label>Email</label>
@@ -37,6 +39,11 @@ class Signup extends Component {
   }
 }
 
-// (4) Here we need to connect our Component to redux using the connect method. But we're already using a High order component (reduxForm).
-// So we need to find a better way to do this, without cluttering more code into one line
-export default reduxForm({ form: "signup" })(Signup);
+// (2) Just as we use compose in FP to combine different functions, we can use compose in react to combine (or compose) different HOC
+export default compose(
+  connect(
+    null,
+    actions
+  ), // First we add connect-redux
+  reduxForm({ form: "signup" }) // And then we include reduxForm
+)(Signup);
