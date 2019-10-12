@@ -1,16 +1,17 @@
-// (3) Now it's time to start tweaking our reducer, first lest import the action types
-import { AUTH_USER } from '../actions/types';
+import { AUTH_USER, AUTH_ERROR } from '../actions/types';
 
 const INITIAL_STATE = {
 	authenticated: '',
 	errorMessage: ''
 };
 
-// (4) And for last let's include the new reducer state, and return the new state
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case AUTH_USER:
-			return { ...state, authenticated: action.payload }; // Notice how we store the user's token inside a property called "authenticated"
+			return { ...state, authenticated: action.payload };
+		// (4) We also have to add the new reducer case, so that we can store the error message inside the redux state
+		case AUTH_ERROR:
+			return { ...state, errorMessage: action.payload };
 		default:
 			return state;
 	}
