@@ -1,10 +1,17 @@
-// (2) Here we're defining our authentication reducer
+// (3) Now it's time to start tweaking our reducer, first lest import the action types
+import { AUTH_USER } from '../actions/types';
+
 const INITIAL_STATE = {
-    authenticated: '',
-    errorMessage: ''
+	authenticated: '',
+	errorMessage: ''
 };
 
+// (4) And for last let's include the new reducer state, and return the new state
 export default (state = INITIAL_STATE, action) => {
-    // (3) For now the only thing that is going to do is to return the state as it's recieved
-    return state;
+	switch (action.type) {
+		case AUTH_USER:
+			return { ...state, authenticated: action.payload }; // Notice how we store the user's token inside a property called "authenticated"
+		default:
+			return state;
+	}
 };
