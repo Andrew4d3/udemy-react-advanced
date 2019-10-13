@@ -8,15 +8,17 @@ import reduxThunk from 'redux-thunk';
 import App from './components/App';
 import Welcome from './components/Welcome';
 import Signup from './components/auth/Signup';
-// (2) Don't forget to import the component inside the root
 import Feature from './components/Feature';
 
 import reducers from './reducers';
 
 const store = createStore(
 	reducers,
-	{},
-
+	// (2) Now we need to find a way to fetch that token if our browser gets refreshed
+	// One way to do it, is by setting it within the inital state passed to the redux provider
+	{
+		auth: { authenticated: localStorage.getItem('token') }
+	},
 	applyMiddleware(reduxThunk)
 );
 
@@ -26,7 +28,6 @@ ReactDOM.render(
 			<App>
 				<Route path="/" exact component={Welcome} />
 				<Route path="/signup" component={Signup} />
-				{/* (3) And include a new route for it */}
 				<Route path="/feature" component={Feature} />
 			</App>
 		</BrowserRouter>

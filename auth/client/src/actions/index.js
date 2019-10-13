@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR } from './types';
 
-// (2) Remember to include the callback function as part of the action arguments
 export const signup = (formProps, callback) => async dispatch => {
 	try {
 		const response = await axios.post(
@@ -10,7 +9,10 @@ export const signup = (formProps, callback) => async dispatch => {
 		);
 
 		dispatch({ type: AUTH_USER, payload: response.data.token });
-		// (3) And call it after we dispatch the action to the reducer
+		// (1) Now we're facing the problem of our app losing its logged in state if we refresh the browser.
+		// To overcome this issue we can rely on using the localStorage API, so that our Token can persist in the browser
+		// We can set this localStorage key (token), just after we dispatch our signup action
+		localStorage.setItem('token', response.data.token);
 		callback();
 	} catch (error) {
 		dispatch({ type: AUTH_ERROR, payload: 'Email in use' });
