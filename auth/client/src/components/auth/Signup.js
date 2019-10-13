@@ -6,7 +6,10 @@ import * as actions from '../../actions';
 
 class Signup extends Component {
 	onSubmit = formProps => {
-		this.props.signup(formProps);
+		// (1) If our login is successful, we need to redirect to the feature page. For this, we have to pass a cb function which is going to be called once we get the API's token
+		this.props.signup(formProps, () => {
+			this.props.history.push('/feature');
+		});
 	};
 
 	render() {
@@ -31,7 +34,6 @@ class Signup extends Component {
 						autoComplete="none"
 					/>
 				</fieldset>
-				{/* (6) For last, let's display the error message just below the Signup form*/}
 				<div>{this.props.errorMessage}</div>
 				<button>Sing Up!</button>
 			</form>
@@ -39,14 +41,13 @@ class Signup extends Component {
 	}
 }
 
-// (5) Now our Signup component needs to be aware of a new redux state, so let's implement a mapStateToProps function
 function mapStateToProps(state) {
 	return { errorMessage: state.auth.errorMessage };
 }
 
 export default compose(
 	connect(
-		mapStateToProps, // (5b) Don't forget to include it as part of the compose parameters
+		mapStateToProps,
 		actions
 	),
 	reduxForm({ form: 'signup' })
