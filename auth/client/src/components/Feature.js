@@ -1,5 +1,6 @@
-// (1) So far, we are showing nothing in our feature path, so let's define a component for such route
 import React, { Component } from 'react';
+// (3) Now the only thing we have to do is to import the requireAuth HOC...
+import requireAuth from './requireAuth';
 
 class Feature extends Component {
 	render() {
@@ -7,4 +8,5 @@ class Feature extends Component {
 	}
 }
 
-export default Feature;
+// (4) And use it with our Feature component like this:
+export default requireAuth(Feature);
