@@ -9,13 +9,13 @@ import App from './components/App';
 import Welcome from './components/Welcome';
 import Signup from './components/auth/Signup';
 import Feature from './components/Feature';
+// (2) Again, we import it
+import Signout from './components/auth/Signout';
 
 import reducers from './reducers';
 
 const store = createStore(
 	reducers,
-	// (2) Now we need to find a way to fetch that token if our browser gets refreshed
-	// One way to do it, is by setting it within the inital state passed to the redux provider
 	{
 		auth: { authenticated: localStorage.getItem('token') }
 	},
@@ -29,6 +29,8 @@ ReactDOM.render(
 				<Route path="/" exact component={Welcome} />
 				<Route path="/signup" component={Signup} />
 				<Route path="/feature" component={Feature} />
+				{/* (3) And set a route for it */}
+				<Route path="/signout" component={Signout} />
 			</App>
 		</BrowserRouter>
 	</Provider>,
