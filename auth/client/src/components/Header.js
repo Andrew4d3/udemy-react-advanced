@@ -6,9 +6,9 @@ class Header extends Component {
 		return (
 			<div>
 				<Link to="/">Redux Auth</Link>
-				<Link to="/singin">Sing In</Link>
-				<Link to="/signup">Sing Up</Link>
-				{/* There was a typo here */}
+				{/* Typos everywhere! */}
+				<Link to="/signin">Sign In</Link>
+				<Link to="/signup">Sign Up</Link>
 				<Link to="/signout">Sign Out</Link>
 				<Link to="/feature">Feature</Link>
 			</div>
