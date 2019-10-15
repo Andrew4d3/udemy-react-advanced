@@ -16,10 +16,9 @@ export const signup = (formProps, callback) => async dispatch => {
 	}
 };
 
-// (4) We also have to set a new action.
-// This action is quite simple, the only thing that does is to clear out the localStorage and reset the payload property on the redux state
-export const sigout = () => {
-	localStorage.clearItem('token');
+export const signout = () => {
+	// (1) There's a typo here. It's removeItem instead of clearItem. I didn't write signout correctly either
+	localStorage.removeItem('token');
 
 	return {
 		type: AUTH_USER,
