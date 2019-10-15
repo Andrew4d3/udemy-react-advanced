@@ -1,0 +1,11 @@
+/* (1) It's time to include some styling. Create a CSS file like this... */
+
+/* (4) And start adding some nice CSS rules */
+.header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.header a {
+	margin: 0 10px;
+}
